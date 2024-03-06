@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Internator - Register</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #3498db, #e74c3c);
+        }
+
+        .register-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center" style="height: 100vh;">
+            <div class="col-md-4 register-container">
+                <form action="{{ url_for('register') }}" method="post">
+                    {% if message is defined and message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                    {% endif %}
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter name">
+                        <label for="sname">Student Name:</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+                        <label for="sid">Student Id:</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="bdate" name="bdate" placeholder="Enter birth year">
+                        <label for="bdate">Birth Date:</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="dept" name="dept" placeholder="Enter department">
+                        <label for="dept">Department:</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="year" name="year" required>
+                            <option value="freshman" selected>Freshman</option>
+                            <option value="sophomore">Sophomore</option>
+                            <option value="junior">Junior</option>
+                            <option value="senior">Senior</option>
+                        </select>
+                        <label for="year">Year:</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" min="0" max="4" step="0.01" class="form-control" id="gpa" name="gpa"
+                            placeholder="Enter GPA">
+                        <label for="gpa">GPA:</label>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary mt-3">Register</button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-3">
+                    <a href="{{ url_for('login') }}" class="btn btn-secondary">Back to Login Page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

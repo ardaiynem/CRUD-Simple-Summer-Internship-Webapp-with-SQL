@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Company List{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #0487df, #e3e6e7);
+    }
+
+    .company-list-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Internator</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            </ul>
+        </div>
+        <div class="navbar-nav ml-auto">
+            <form action="{{ url_for('apply') }}" method="get">
+                <button type="submit" class="btn btn-primary">Apply for New Internship</button>
+            </form>
+
+            <form action="{{ url_for('summary') }}" method="get">
+                <button type="submit" class="btn btn-primary">Summary</button>
+            </form>
+
+            <form action="{{ url_for('logout') }}" method="get">
+                <button type="submit" class="btn btn-primary">Logout</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="company-list-container">
+        <h1 class="text-center mb-3">Welcome, {{ session.sname }}!</h1>
+        <h2 class="text-center mb-3">Company List</h2>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ messages[0] }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        {% endwith %}
+        <div class="center-table">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Company ID</th>
+                        <th scope="col">Company Name</th>
+                        <th scope="col">Quota</th>
+                        <th scope="col">GPA Threshold</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for company in companies %}
+                    <tr>
+                        <td>{{ company.cid }}</td>
+                        <td>{{ company.cname }}</td>
+                        <td>{{ company.quota }}</td>
+                        <td>{{ company.gpa_threshold }}</td>
+                        <td>{{ company.city }}</td>
+                        <td>
+                            <form action="{{ url_for('cancel_internship') }}" method="get">
+                                <input type="hidden" name="cid" value="{{ company.cid }}">
+                                <button type="submit" class="btn btn-danger">Cancel</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
